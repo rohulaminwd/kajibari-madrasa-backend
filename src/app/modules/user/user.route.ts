@@ -27,6 +27,8 @@ router.post(
   UserController.createAdmin
 );
 
+router.get('/', UserController.getAllUsers);
+
 router.get(
   '/:id',
   auth(

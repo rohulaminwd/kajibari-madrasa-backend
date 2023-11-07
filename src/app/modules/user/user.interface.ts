@@ -8,6 +8,7 @@ export type IUser = {
   id: string;
   _id?: string;
   role: string;
+  status: string;
   password: string;
   student?: Types.ObjectId | IStudent;
   faculty?: Types.ObjectId | IFaculty;
@@ -23,3 +24,11 @@ export type UserModel = {
     savedPassword: string
   ): Promise<boolean>;
 } & Model<IUser>;
+
+export type IUserFilters = {
+  searchTerm?: string;
+  id?: string;
+  bloodGroup?: string;
+  contactNo?: string;
+  emergencyContactNo?: string;
+};

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Schema, model } from 'mongoose';
+import { status } from './user.constant';
 import { IUser, UserModel } from './user.interface';
 
 const UserSchema = new Schema<IUser, UserModel>(
@@ -12,6 +13,11 @@ const UserSchema = new Schema<IUser, UserModel>(
     role: {
       type: String,
       required: true,
+    },
+    status: {
+      type: String,
+      enum: status,
+      default: 'pending',
     },
     password: {
       type: String,

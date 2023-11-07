@@ -1,8 +1,11 @@
 import { Request, Response } from 'express';
 import { RequestHandler } from 'express-serve-static-core';
 import httpStatus from 'http-status';
+import { paginationFields } from '../../../constants/pagination';
 import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
+import { userFilterableFields } from './user.constant';
 import { IUser } from './user.interface';
 import { UserService } from './user.service';
 
@@ -47,6 +50,22 @@ const createAdmin: RequestHandler = catchAsync(
     });
   }
 );
+
+const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, userFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
+
+  const result = await UserService.getAllUsers(filters, paginationOptions);
+
+  sendResponse<IUser[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Students fetched successfully !',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 const GetMyProfile: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id: string = req.params.id;
@@ -65,5 +84,6 @@ export const UserController = {
   createStudent,
   createFaculy,
   createAdmin,
+  getAllUsers,
   GetMyProfile,
 };

@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { FacultyModel, IFaculty } from './faculty.interface';
 
 const FacultySchema = new Schema<IFaculty, FacultyModel>(
@@ -9,20 +9,7 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
       unique: true,
     },
     name: {
-      type: {
-        firstName: {
-          type: String,
-          required: true,
-        },
-        lastName: {
-          type: String,
-          required: true,
-        },
-        middleName: {
-          type: String,
-          required: false,
-        },
-      },
+      type: String,
       required: true,
     },
     dateOfBirth: {
@@ -38,12 +25,9 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
     },
     email: {
       type: String,
-      unique: true,
-      required: true,
     },
     contactNo: {
       type: String,
-      unique: true,
       required: true,
     },
     emergencyContactNo: {
@@ -58,23 +42,12 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
       type: String,
       required: true,
     },
-    academicDepartment: {
-      type: Types.ObjectId,
-      ref: 'AcademicDepartment',
-      required: true,
-    },
     designation: {
       type: String,
       required: true,
     },
     profileImage: {
       type: String,
-      // required: true,
-    },
-    academicFaculty: {
-      type: Types.ObjectId,
-      ref: 'AcademicFaculty',
-      required: true,
     },
   },
   {

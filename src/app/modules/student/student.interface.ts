@@ -27,16 +27,17 @@ export type IStudent = {
   id: string;
   name: string; //embedded object
   gender: 'male' | 'female' | 'others';
+  resident: boolean;
   dateOfBirth: string;
   email: string;
-  status: string;
+  rollNo?: string;
   contactNo: string;
   emergencyContactNo: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   presentAddress: string;
   permanentAddress: string;
   guardian: Guardian;
-  classes: string;
+  department: string;
   profileImage?: string;
 };
 

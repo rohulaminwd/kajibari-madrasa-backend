@@ -16,13 +16,15 @@ export const findLastStudentId = async (): Promise<string | undefined> => {
   return lastStudent?.id ? lastStudent.id.substring(4) : undefined;
 };
 
-export const generateStudentId = async (): Promise<string> => {
+export const generateStudentId = async (
+  contactNoTowNum: string
+): Promise<string> => {
   const currentId =
     (await findLastStudentId()) || (0).toString().padStart(4, '0'); //00000
   //increment by 1
   let incrementedId = (parseInt(currentId) + 1).toString().padStart(4, '0');
   const year = new Date().getFullYear().toString();
-  incrementedId = `${year.slice(2)}${incrementedId}`;
+  incrementedId = `${year.slice(2)}${incrementedId}${contactNoTowNum}`;
 
   //20 25
 
@@ -40,11 +42,13 @@ export const findLastFacultyId = async (): Promise<string | undefined> => {
   return lastFaculty?.id ? lastFaculty.id.substring(2) : undefined;
 };
 
-export const generateFacultyId = async (): Promise<string> => {
+export const generateFacultyId = async (
+  contactNoTowNum: string
+): Promise<string> => {
   const currentId =
-    (await findLastFacultyId()) || (0).toString().padStart(5, '0');
-  let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
-  incrementedId = `F-${incrementedId}`;
+    (await findLastFacultyId()) || (0).toString().padStart(4, '0');
+  let incrementedId = (parseInt(currentId) + 1).toString().padStart(4, '0');
+  incrementedId = `F${incrementedId}${contactNoTowNum}`;
 
   return incrementedId;
 };

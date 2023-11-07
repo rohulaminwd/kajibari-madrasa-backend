@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import { status } from '../user/user.constant';
 import { bloodGroup, gender } from './student.constant';
 import { IStudent, StudentModel } from './student.interface';
 
@@ -19,15 +18,17 @@ export const StudentSchema = new Schema<IStudent, StudentModel>(
       enum: gender,
       default: 'female',
     },
-    status: {
-      type: String,
-      enum: status,
-      default: 'pending',
+    resident: {
+      type: Boolean,
+      default: false,
     },
     dateOfBirth: {
       type: String,
     },
     email: {
+      type: String,
+    },
+    rollNo: {
       type: String,
     },
     contactNo: {
@@ -48,7 +49,7 @@ export const StudentSchema = new Schema<IStudent, StudentModel>(
     permanentAddress: {
       type: String,
     },
-    classes: {
+    department: {
       type: String,
       required: true,
     },
@@ -59,20 +60,21 @@ export const StudentSchema = new Schema<IStudent, StudentModel>(
           type: String,
           required: true,
         },
-        guardianRelationship: {
+
+        fatherOccupation: {
           type: String,
           required: true,
         },
-        fatherOccupation: {
+        guardianName: {
+          type: String,
+          required: true,
+        },
+        guardianRelationship: {
           type: String,
           required: true,
         },
         contactNo: {
           type: String,
-        },
-        guardianName: {
-          type: String,
-          required: true,
         },
         motherName: {
           type: String,
