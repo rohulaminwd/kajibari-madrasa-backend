@@ -25,9 +25,6 @@ exports.StudentSchema = new mongoose_1.Schema({
     dateOfBirth: {
         type: String,
     },
-    email: {
-        type: String,
-    },
     rollNo: {
         type: String,
     },
@@ -49,10 +46,17 @@ exports.StudentSchema = new mongoose_1.Schema({
     permanentAddress: {
         type: String,
     },
+    previousSchool: {
+        type: String,
+    },
+    previousClass: {
+        type: String,
+    },
     department: {
         type: String,
         required: true,
     },
+    paymentCard: [],
     guardian: {
         required: true,
         type: {

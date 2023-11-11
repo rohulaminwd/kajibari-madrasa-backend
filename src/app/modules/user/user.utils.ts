@@ -39,15 +39,15 @@ export const findLastFacultyId = async (): Promise<string | undefined> => {
     })
     .lean();
 
-  return lastFaculty?.id ? lastFaculty.id.substring(2) : undefined;
+  return lastFaculty?.id ? lastFaculty.id.substring(3) : undefined;
 };
 
 export const generateFacultyId = async (
   contactNoTowNum: string
 ): Promise<string> => {
   const currentId =
-    (await findLastFacultyId()) || (0).toString().padStart(4, '0');
-  let incrementedId = (parseInt(currentId) + 1).toString().padStart(4, '0');
+    (await findLastFacultyId()) || (0).toString().padStart(3, '0');
+  let incrementedId = (parseInt(currentId) + 1).toString().padStart(3, '0');
   incrementedId = `F${incrementedId}${contactNoTowNum}`;
 
   return incrementedId;

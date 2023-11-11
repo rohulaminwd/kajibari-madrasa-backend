@@ -124,14 +124,6 @@ const createFaculty = (faculty, user) => __awaiter(void 0, void 0, void 0, funct
     if (newUserAllData) {
         newUserAllData = yield user_model_1.User.findOne({ id: newUserAllData.id }).populate({
             path: 'faculty',
-            populate: [
-                {
-                    path: 'academicDepartment',
-                },
-                {
-                    path: 'academicFaculty',
-                },
-            ],
         });
     }
     return newUserAllData;
@@ -213,6 +205,7 @@ const getAllUsers = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
     const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
     const result = yield user_model_1.User.find(whereConditions)
         .populate({ path: 'student' })
+        .populate({ path: 'faculty' })
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
@@ -227,7 +220,9 @@ const getAllUsers = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
     };
 });
 const GetMyProfile = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_model_1.User.findOne({ id }).populate({ path: 'student' });
+    const result = yield user_model_1.User.findOne({ id })
+        .populate({ path: 'student' })
+        .populate({ path: 'faculty' });
     return result;
 });
 exports.UserService = {

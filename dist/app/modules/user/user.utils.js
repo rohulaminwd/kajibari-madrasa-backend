@@ -40,12 +40,12 @@ const findLastFacultyId = () => __awaiter(void 0, void 0, void 0, function* () {
         createdAt: -1,
     })
         .lean();
-    return (lastFaculty === null || lastFaculty === void 0 ? void 0 : lastFaculty.id) ? lastFaculty.id.substring(2) : undefined;
+    return (lastFaculty === null || lastFaculty === void 0 ? void 0 : lastFaculty.id) ? lastFaculty.id.substring(3) : undefined;
 });
 exports.findLastFacultyId = findLastFacultyId;
 const generateFacultyId = (contactNoTowNum) => __awaiter(void 0, void 0, void 0, function* () {
-    const currentId = (yield (0, exports.findLastFacultyId)()) || (0).toString().padStart(4, '0');
-    let incrementedId = (parseInt(currentId) + 1).toString().padStart(4, '0');
+    const currentId = (yield (0, exports.findLastFacultyId)()) || (0).toString().padStart(3, '0');
+    let incrementedId = (parseInt(currentId) + 1).toString().padStart(3, '0');
     incrementedId = `F${incrementedId}${contactNoTowNum}`;
     return incrementedId;
 });

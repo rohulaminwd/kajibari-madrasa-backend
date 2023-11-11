@@ -128,14 +128,6 @@ const createFaculty = async (
   if (newUserAllData) {
     newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
       path: 'faculty',
-      populate: [
-        {
-          path: 'academicDepartment',
-        },
-        {
-          path: 'academicFaculty',
-        },
-      ],
     });
   }
 
@@ -240,6 +232,7 @@ const getAllUsers = async (
 
   const result = await User.find(whereConditions)
     .populate({ path: 'student' })
+    .populate({ path: 'faculty' })
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
@@ -257,7 +250,9 @@ const getAllUsers = async (
 };
 
 const GetMyProfile = async (id: string): Promise<IUser | null> => {
-  const result = await User.findOne({ id }).populate({ path: 'student' });
+  const result = await User.findOne({ id })
+    .populate({ path: 'student' })
+    .populate({ path: 'faculty' });
   return result;
 };
 

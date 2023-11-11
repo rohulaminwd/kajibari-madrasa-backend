@@ -15,8 +15,8 @@ router.post(
 
 router.post(
   '/create-faculty',
-  validateRequest(UserValidation.createFacultyZodSchema),
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  // validateRequest(UserValidation.createFacultyZodSchema),
+  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   UserController.createFaculy
 );
 

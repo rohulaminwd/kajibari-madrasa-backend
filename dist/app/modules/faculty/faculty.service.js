@@ -90,19 +90,11 @@ const updateFaculty = (id, payload) => __awaiter(void 0, void 0, void 0, functio
     if (!isExist) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Faculty not found !');
     }
-    const { name } = payload, FacultyData = __rest(payload, ["name"]);
-    const updatedFacultyData = Object.assign({}, FacultyData);
-    if (name && Object.keys(name).length > 0) {
-        Object.keys(name).forEach(key => {
-            const nameKey = `name.${key}`;
-            updatedFacultyData[nameKey] = name[key];
-        });
-    }
-    const result = yield faculty_model_1.Faculty.findOneAndUpdate({ id }, updatedFacultyData, {
+    // const { name, ...FacultyData } = payload;
+    // const updatedFacultyData: Partial<IFaculty> = { ...FacultyData };
+    const result = yield faculty_model_1.Faculty.findOneAndUpdate({ id }, payload, {
         new: true,
-    })
-        .populate('academicFaculty')
-        .populate('academicDepartment');
+    });
     return result;
 });
 const deleteFaculty = (id) => __awaiter(void 0, void 0, void 0, function* () {

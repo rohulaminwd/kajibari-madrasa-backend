@@ -16,11 +16,11 @@ export type Guardian = {
   guardianName: string;
 };
 
-export type LocalGuardian = {
-  name: string;
-  occupation: string;
-  contactNo: string;
-  address: string;
+export type payment = {
+  amount: string;
+  date: string;
+  month: string;
+  year: string;
 };
 
 export type IStudent = {
@@ -29,9 +29,9 @@ export type IStudent = {
   gender: 'male' | 'female' | 'others';
   resident: boolean;
   dateOfBirth: string;
-  email: string;
   rollNo?: string;
   contactNo: string;
+  paymentCard: payment[];
   emergencyContactNo: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   presentAddress: string;
@@ -39,6 +39,8 @@ export type IStudent = {
   guardian: Guardian;
   department: string;
   profileImage?: string;
+  previousSchool?: string;
+  previousClass?: string;
 };
 
 export type StudentModel = Model<IStudent, Record<string, unknown>>;

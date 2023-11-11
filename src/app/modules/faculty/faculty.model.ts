@@ -12,6 +12,10 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
       type: String,
       required: true,
     },
+    fatherName: {
+      type: String,
+      required: true,
+    },
     dateOfBirth: {
       type: String,
     },
@@ -23,16 +27,11 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
       type: String,
       enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
     },
-    email: {
-      type: String,
-    },
     contactNo: {
       type: String,
-      required: true,
     },
     emergencyContactNo: {
       type: String,
-      required: true,
     },
     presentAddress: {
       type: String,
@@ -40,7 +39,6 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
     },
     permanentAddress: {
       type: String,
-      required: true,
     },
     designation: {
       type: String,

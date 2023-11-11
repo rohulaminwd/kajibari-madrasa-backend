@@ -88,21 +88,12 @@ const updateFaculty = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found !');
   }
 
-  const { name, ...FacultyData } = payload;
-  const updatedFacultyData: Partial<IFaculty> = { ...FacultyData };
+  // const { name, ...FacultyData } = payload;
+  // const updatedFacultyData: Partial<IFaculty> = { ...FacultyData };
 
-  if (name && Object.keys(name).length > 0) {
-    Object.keys(name).forEach(key => {
-      const nameKey = `name.${key}` as keyof Partial<IFaculty>;
-      (updatedFacultyData as any)[nameKey] = name[key as keyof typeof name];
-    });
-  }
-
-  const result = await Faculty.findOneAndUpdate({ id }, updatedFacultyData, {
+  const result = await Faculty.findOneAndUpdate({ id }, payload, {
     new: true,
-  })
-    .populate('academicFaculty')
-    .populate('academicDepartment');
+  });
   return result;
 };
 

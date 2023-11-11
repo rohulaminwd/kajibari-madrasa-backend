@@ -25,9 +25,6 @@ export const StudentSchema = new Schema<IStudent, StudentModel>(
     dateOfBirth: {
       type: String,
     },
-    email: {
-      type: String,
-    },
     rollNo: {
       type: String,
     },
@@ -49,10 +46,17 @@ export const StudentSchema = new Schema<IStudent, StudentModel>(
     permanentAddress: {
       type: String,
     },
+    previousSchool: {
+      type: String,
+    },
+    previousClass: {
+      type: String,
+    },
     department: {
       type: String,
       required: true,
     },
+    paymentCard: [],
     guardian: {
       required: true,
       type: {
