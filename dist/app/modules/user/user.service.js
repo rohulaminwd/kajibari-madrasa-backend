@@ -35,6 +35,7 @@ const user_model_1 = require("./user.model");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const student_constant_1 = require("../student/student.constant");
 const user_utils_1 = require("./user.utils");
+// ============== Create a New Student ================== //
 const createStudent = (student, user) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     // If password is not given,set default password
@@ -81,6 +82,7 @@ const createStudent = (student, user) => __awaiter(void 0, void 0, void 0, funct
     }
     return newUserAllData;
 });
+// ============== Create a New Faculty ================== //
 const createFaculty = (faculty, user) => __awaiter(void 0, void 0, void 0, function* () {
     var _c, _d;
     // If password is not given,set default password
@@ -128,6 +130,7 @@ const createFaculty = (faculty, user) => __awaiter(void 0, void 0, void 0, funct
     }
     return newUserAllData;
 });
+// ============== Create a New Admin ================== //
 const createAdmin = (admin, user) => __awaiter(void 0, void 0, void 0, function* () {
     // If password is not given,set default password
     if (!user.password) {
@@ -173,6 +176,7 @@ const createAdmin = (admin, user) => __awaiter(void 0, void 0, void 0, function*
     }
     return newUserAllData;
 });
+// ============== Get all User by filtering filter ================== //
 const getAllUsers = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
     // Extract searchTerm to implement search query
     const { searchTerm } = filters, filtersData = __rest(filters, ["searchTerm"]);
@@ -197,6 +201,9 @@ const getAllUsers = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
             })),
         });
     }
+    // andConditions.push({
+    //   status: 'active',
+    // });
     // Dynamic  Sort needs  field to  do sorting
     const sortConditions = {};
     if (sortBy && sortOrder) {
@@ -219,8 +226,59 @@ const getAllUsers = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
         data: result,
     };
 });
+// ============== Get My Profile ================== //
 const GetMyProfile = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.findOne({ id })
+        .populate({ path: 'student' })
+        .populate({ path: 'faculty' });
+    return result;
+});
+// ============== Add new Student active status and rollNo ================== //
+const AddStudentActive = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    let updateUser = null;
+    const options = { new: true };
+    const session = yield mongoose_1.default.startSession();
+    try {
+        session.startTransaction();
+        // Generate a new student ID (assuming generateActiveStudentId works correctly)
+        const newId = yield (0, user_utils_1.generateActiveStudentId)(payload === null || payload === void 0 ? void 0 : payload.rollNo);
+        // Update user with the new student ID
+        const userUpdate = {
+            $set: {
+                status: 'active',
+                id: newId,
+            },
+        };
+        yield user_model_1.User.findOneAndUpdate({ _id: userId }, userUpdate, options).session(session);
+        // Update student with the new rollNo and student ID
+        const updateStudent = {
+            $set: { rollNo: payload === null || payload === void 0 ? void 0 : payload.rollNo, id: newId },
+        };
+        yield student_model_1.Student.findOneAndUpdate({ _id: payload === null || payload === void 0 ? void 0 : payload.studentId }, updateStudent, options).session(session);
+        // Populate user with student and faculty data
+        const result = yield user_model_1.User.findOne({ _id: userId })
+            .populate({ path: 'student' })
+            .populate({ path: 'faculty' })
+            .session(session);
+        updateUser = result;
+        // Commit the transaction
+        yield session.commitTransaction();
+    }
+    catch (error) {
+        // Abort the transaction and re-throw the error
+        yield session.abortTransaction();
+        throw error;
+    }
+    finally {
+        // End the session
+        session.endSession();
+    }
+    return updateUser;
+});
+// ============== Update User ================== //
+const updateUser = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const options = { new: true };
+    const result = yield user_model_1.User.findOneAndUpdate({ _id: userId }, payload, options)
         .populate({ path: 'student' })
         .populate({ path: 'faculty' });
     return result;
@@ -231,4 +289,6 @@ exports.UserService = {
     createAdmin,
     getAllUsers,
     GetMyProfile,
+    AddStudentActive,
+    updateUser,
 };

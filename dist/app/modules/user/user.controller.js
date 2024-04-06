@@ -83,10 +83,32 @@ const GetMyProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         data: result,
     });
 }));
+const AddStudentActive = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield user_service_1.UserService.AddStudentActive(id, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'New Student add successfully!',
+        data: result,
+    });
+}));
+const updateUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield user_service_1.UserService.updateUser(id, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'User Update successfully',
+        data: result,
+    });
+}));
 exports.UserController = {
     createStudent,
     createFaculy,
     createAdmin,
     getAllUsers,
     GetMyProfile,
+    AddStudentActive,
+    updateUser,
 };

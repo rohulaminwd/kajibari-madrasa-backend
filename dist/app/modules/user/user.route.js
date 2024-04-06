@@ -20,5 +20,14 @@ router.post('/create-faculty',
 user_controller_1.UserController.createFaculy);
 router.post('/create-admin', (0, validateRequest_1.default)(user_validation_1.UserValidation.createAdminZodSchema), (0, auth_1.default)(user_1.ENUM_USER_ROLE.SUPER_ADMIN, user_1.ENUM_USER_ROLE.ADMIN), user_controller_1.UserController.createAdmin);
 router.get('/', user_controller_1.UserController.getAllUsers);
-router.get('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.SUPER_ADMIN, user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.STUDENT, user_1.ENUM_USER_ROLE.FACULTY), user_controller_1.UserController.GetMyProfile);
+router.get('/:id', 
+// auth(
+//   ENUM_USER_ROLE.SUPER_ADMIN,
+//   ENUM_USER_ROLE.ADMIN,
+//   ENUM_USER_ROLE.STUDENT,
+//   ENUM_USER_ROLE.FACULTY
+// ),
+user_controller_1.UserController.GetMyProfile);
+router.patch('/active-student/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.SUPER_ADMIN, user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.STUDENT, user_1.ENUM_USER_ROLE.FACULTY), user_controller_1.UserController.AddStudentActive);
+router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.SUPER_ADMIN, user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.STUDENT, user_1.ENUM_USER_ROLE.FACULTY), user_controller_1.UserController.updateUser);
 exports.UserRoutes = router;

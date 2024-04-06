@@ -14,6 +14,7 @@ exports.userSearchableFields = [
 exports.userFilterableFields = [
     'searchTerm',
     'id',
+    'status',
     'bloodGroup',
     'contactNo',
     'emergencyContactNo',

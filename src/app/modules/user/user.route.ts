@@ -31,13 +31,35 @@ router.get('/', UserController.getAllUsers);
 
 router.get(
   '/:id',
+  // auth(
+  //   ENUM_USER_ROLE.SUPER_ADMIN,
+  //   ENUM_USER_ROLE.ADMIN,
+  //   ENUM_USER_ROLE.STUDENT,
+  //   ENUM_USER_ROLE.FACULTY
+  // ),
+  UserController.GetMyProfile
+);
+
+router.patch(
+  '/active-student/:id',
   auth(
     ENUM_USER_ROLE.SUPER_ADMIN,
     ENUM_USER_ROLE.ADMIN,
     ENUM_USER_ROLE.STUDENT,
     ENUM_USER_ROLE.FACULTY
   ),
-  UserController.GetMyProfile
+  UserController.AddStudentActive
+);
+
+router.patch(
+  '/:id',
+  auth(
+    ENUM_USER_ROLE.SUPER_ADMIN,
+    ENUM_USER_ROLE.ADMIN,
+    ENUM_USER_ROLE.STUDENT,
+    ENUM_USER_ROLE.FACULTY
+  ),
+  UserController.updateUser
 );
 
 export const UserRoutes = router;

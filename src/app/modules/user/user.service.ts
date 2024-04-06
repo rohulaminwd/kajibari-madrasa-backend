@@ -16,10 +16,13 @@ import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { studentSearchableFields } from '../student/student.constant';
 import {
+  generateActiveStudentId,
   generateAdminId,
   generateFacultyId,
   generateStudentId,
 } from './user.utils';
+
+// ============== Create a New Student ================== //
 
 const createStudent = async (
   student: IStudent,
@@ -78,6 +81,8 @@ const createStudent = async (
   return newUserAllData;
 };
 
+// ============== Create a New Faculty ================== //
+
 const createFaculty = async (
   faculty: IFaculty,
   user: IUser
@@ -133,6 +138,8 @@ const createFaculty = async (
 
   return newUserAllData;
 };
+
+// ============== Create a New Admin ================== //
 
 const createAdmin = async (
   admin: IAdmin,
@@ -191,6 +198,8 @@ const createAdmin = async (
   return newUserAllData;
 };
 
+// ============== Get all User by filtering filter ================== //
+
 const getAllUsers = async (
   filters: IUserFilters,
   paginationOptions: IPaginationOptions
@@ -222,6 +231,10 @@ const getAllUsers = async (
     });
   }
 
+  // andConditions.push({
+  //   status: 'active',
+  // });
+
   // Dynamic  Sort needs  field to  do sorting
   const sortConditions: { [key: string]: SortOrder } = {};
   if (sortBy && sortOrder) {
@@ -249,10 +262,86 @@ const getAllUsers = async (
   };
 };
 
+// ============== Get My Profile ================== //
+
 const GetMyProfile = async (id: string): Promise<IUser | null> => {
   const result = await User.findOne({ id })
     .populate({ path: 'student' })
     .populate({ path: 'faculty' });
+  return result;
+};
+
+// ============== Add new Student active status and rollNo ================== //
+
+const AddStudentActive = async (
+  userId: string,
+  payload: Partial<any>
+): Promise<IUser | null> => {
+  let updateUser = null;
+
+  const options = { new: true };
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    // Generate a new student ID (assuming generateActiveStudentId works correctly)
+    const newId = await generateActiveStudentId(payload?.rollNo);
+
+    // Update user with the new student ID
+    const userUpdate = {
+      $set: {
+        status: 'active',
+        id: newId,
+      },
+    };
+    await User.findOneAndUpdate({ _id: userId }, userUpdate, options).session(
+      session
+    );
+
+    // Update student with the new rollNo and student ID
+    const updateStudent = {
+      $set: { rollNo: payload?.rollNo, id: newId },
+    };
+    await Student.findOneAndUpdate(
+      { _id: payload?.studentId },
+      updateStudent,
+      options
+    ).session(session);
+
+    // Populate user with student and faculty data
+    const result = await User.findOne({ _id: userId })
+      .populate({ path: 'student' })
+      .populate({ path: 'faculty' })
+      .session(session);
+    updateUser = result;
+
+    // Commit the transaction
+    await session.commitTransaction();
+  } catch (error) {
+    // Abort the transaction and re-throw the error
+    await session.abortTransaction();
+    throw error;
+  } finally {
+    // End the session
+    session.endSession();
+  }
+
+  return updateUser;
+};
+
+// ============== Update User ================== //
+
+const updateUser = async (
+  userId: string,
+  payload: Partial<IUser>
+): Promise<IUser | null> => {
+  const options = { new: true };
+
+  const result = await User.findOneAndUpdate({ _id: userId }, payload, options)
+    .populate({ path: 'student' })
+    .populate({ path: 'faculty' });
+
   return result;
 };
 
@@ -262,4 +351,6 @@ export const UserService = {
   createAdmin,
   getAllUsers,
   GetMyProfile,
+  AddStudentActive,
+  updateUser,
 };

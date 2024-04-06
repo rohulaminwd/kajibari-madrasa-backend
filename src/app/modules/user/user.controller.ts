@@ -80,10 +80,40 @@ const GetMyProfile: RequestHandler = catchAsync(
   }
 );
 
+const AddStudentActive: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const id: string = req.params.id;
+    const result = await UserService.AddStudentActive(id, req.body);
+
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'New Student add successfully!',
+      data: result,
+    });
+  }
+);
+
+const updateUser: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const id: string = req.params.id;
+    const result = await UserService.updateUser(id, req.body);
+
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'User Update successfully',
+      data: result,
+    });
+  }
+);
+
 export const UserController = {
   createStudent,
   createFaculy,
   createAdmin,
   getAllUsers,
   GetMyProfile,
+  AddStudentActive,
+  updateUser,
 };

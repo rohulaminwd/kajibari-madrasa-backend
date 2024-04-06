@@ -28,6 +28,7 @@ export type UserModel = {
 export type IUserFilters = {
   searchTerm?: string;
   id?: string;
+  status?: string;
   bloodGroup?: string;
   contactNo?: string;
   emergencyContactNo?: string;

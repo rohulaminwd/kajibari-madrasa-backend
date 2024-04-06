@@ -14,6 +14,7 @@ export const userSearchableFields = [
 export const userFilterableFields = [
   'searchTerm',
   'id',
+  'status',
   'bloodGroup',
   'contactNo',
   'emergencyContactNo',
