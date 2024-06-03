@@ -6,9 +6,8 @@ export const studentSearchableFields = [
   'email',
   'contactNo',
   'name',
-  'role',
+  'department',
   'rollNo',
-  '',
 ];
 
 export const studentFilterableFields = [
@@ -18,6 +17,7 @@ export const studentFilterableFields = [
   'email',
   'contactNo',
   'emergencyContactNo',
+  'department',
 ];
 
 export const EVENT_STUDENT_UPDATED = 'student.updated';

@@ -8,9 +8,8 @@ exports.studentSearchableFields = [
     'email',
     'contactNo',
     'name',
-    'role',
+    'department',
     'rollNo',
-    '',
 ];
 exports.studentFilterableFields = [
     'searchTerm',
@@ -19,5 +18,6 @@ exports.studentFilterableFields = [
     'email',
     'contactNo',
     'emergencyContactNo',
+    'department',
 ];
 exports.EVENT_STUDENT_UPDATED = 'student.updated';

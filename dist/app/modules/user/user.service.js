@@ -33,7 +33,7 @@ const faculty_model_1 = require("../faculty/faculty.model");
 const student_model_1 = require("../student/student.model");
 const user_model_1 = require("./user.model");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
-const student_constant_1 = require("../student/student.constant");
+const user_constant_1 = require("./user.constant");
 const user_utils_1 = require("./user.utils");
 // ============== Create a New Student ================== //
 const createStudent = (student, user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -185,7 +185,7 @@ const getAllUsers = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
     // Search needs $or for searching in specified fields
     if (searchTerm) {
         andConditions.push({
-            $or: student_constant_1.studentSearchableFields.map(field => ({
+            $or: user_constant_1.userSearchableFields.map(field => ({
                 [field]: {
                     $regex: searchTerm,
                     $options: 'i',

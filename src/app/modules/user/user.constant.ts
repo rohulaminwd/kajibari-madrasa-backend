@@ -5,10 +5,13 @@ export const status = ['active', 'deActive', 'pending'];
 
 export const userSearchableFields = [
   'id',
-  'contactNo',
-  'name',
-  'rollNo',
-  'rollNo',
+  'student.contactNo',
+  'student.name',
+  'faculty.name',
+  'student.rollNo',
+  'student.department',
+  'role',
+  'status',
 ];
 
 export const userFilterableFields = [
@@ -17,5 +20,8 @@ export const userFilterableFields = [
   'status',
   'bloodGroup',
   'contactNo',
-  'emergencyContactNo',
+  'student.name',
+  'student.department',
+  'faculty.name',
+  'role',
 ];

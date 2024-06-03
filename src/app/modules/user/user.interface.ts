@@ -31,5 +31,5 @@ export type IUserFilters = {
   status?: string;
   bloodGroup?: string;
   contactNo?: string;
-  emergencyContactNo?: string;
+  role?: string;
 };

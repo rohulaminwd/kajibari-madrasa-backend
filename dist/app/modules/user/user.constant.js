@@ -6,10 +6,13 @@ exports.EVENT_FACULTY_CREATED = 'faculty.created';
 exports.status = ['active', 'deActive', 'pending'];
 exports.userSearchableFields = [
     'id',
-    'contactNo',
-    'name',
-    'rollNo',
-    'rollNo',
+    'student.contactNo',
+    'student.name',
+    'faculty.name',
+    'student.rollNo',
+    'student.department',
+    'role',
+    'status',
 ];
 exports.userFilterableFields = [
     'searchTerm',
@@ -17,5 +20,8 @@ exports.userFilterableFields = [
     'status',
     'bloodGroup',
     'contactNo',
-    'emergencyContactNo',
+    'student.name',
+    'student.department',
+    'faculty.name',
+    'role',
 ];

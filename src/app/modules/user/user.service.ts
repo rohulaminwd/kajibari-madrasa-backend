@@ -14,7 +14,7 @@ import { User } from './user.model';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
-import { studentSearchableFields } from '../student/student.constant';
+import { userSearchableFields } from './user.constant';
 import {
   generateActiveStudentId,
   generateAdminId,
@@ -213,7 +213,7 @@ const getAllUsers = async (
   // Search needs $or for searching in specified fields
   if (searchTerm) {
     andConditions.push({
-      $or: studentSearchableFields.map(field => ({
+      $or: userSearchableFields.map(field => ({
         [field]: {
           $regex: searchTerm,
           $options: 'i',
