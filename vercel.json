@@ -1,19 +1,15 @@
 {
-    "version": 2,
-    "builds": [
+  "version": 2,
+  "builds": [
     {
-    "src": "dist/server.js",
-    "use": "@vercel/node"
+      "src": "dist/server.js",
+      "use": "@vercel/node"
     }
-    ],
-    "routes": [
+  ],
+  "routes": [
     {
-    "src": "/(.*)",
-    "dest": "dist/server.js"
+      "src": "/(.*)",
+      "dest": "dist/server.js"
     }
-    ],
-    "env": {
-        "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/google-chrome-stable",
-        "PUPPETEER_CACHE_DIR": "/home/vercel/.cache/puppeteer"
-      }
+  ]
 }
