@@ -29,10 +29,6 @@ const moduleRoutes = [
     path: '/auth',
     route: AuthRoutes,
   },
-  // {
-  //   path: '/invoice',
-  //   route: InvoiceRoutes,
-  // },
 ];
 
 moduleRoutes.forEach(route => router.use(route.path, route.route));

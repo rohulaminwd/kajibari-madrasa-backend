@@ -8,8 +8,8 @@ const express_1 = __importDefault(require("express"));
 const user_1 = require("../../../enums/user");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
-const user_controller_1 = require("./user.controller");
-const user_validation_1 = require("./user.validation");
+const user_controller_1 = require("../user/user.controller");
+const user_validation_1 = require("../user/user.validation");
 const router = express_1.default.Router();
 router.post('/create-student', (0, validateRequest_1.default)(user_validation_1.UserValidation.createStudentZodSchema), 
 // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),

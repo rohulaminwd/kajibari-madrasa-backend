@@ -283,6 +283,14 @@ const updateUser = (userId, payload) => __awaiter(void 0, void 0, void 0, functi
         .populate({ path: 'faculty' });
     return result;
 });
+// ============== Delete User ================== //
+const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    // Find the user and remove it
+    const result = yield user_model_1.User.findByIdAndDelete(userId)
+        .populate({ path: 'student' })
+        .populate({ path: 'faculty' });
+    return result;
+});
 exports.UserService = {
     createStudent,
     createFaculty,
@@ -291,4 +299,5 @@ exports.UserService = {
     GetMyProfile,
     AddStudentActive,
     updateUser,
+    deleteUser,
 };
