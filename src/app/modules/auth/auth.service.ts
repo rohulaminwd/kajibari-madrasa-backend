@@ -1,6 +1,5 @@
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
-import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import { User } from '../user/user.model';
@@ -32,14 +31,14 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { id: userId, role, _id } = isUserExist;
   const accessToken = jwtHelpers.createToken(
     { userId, role, _id },
-    config.jwt.secret as Secret,
-    config.jwt.expires_in as string
+    process.env.JWT_SECRET as Secret,
+    process.env.JWT_EXPIRES_IN as string
   );
 
   const refreshToken = jwtHelpers.createToken(
     { userId, role, _id },
-    config.jwt.refresh_secret as Secret,
-    config.jwt.refresh_expires_in as string
+    process.env.JWT_REFRESH_SECRET as Secret,
+    process.env.JWT_REFRESH_EXPIRES_IN as string
   );
 
   return {
@@ -55,7 +54,7 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
   try {
     verifiedToken = jwtHelpers.verifyToken(
       token,
-      config.jwt.refresh_secret as Secret
+      process.env.JWT_REFRESH_SECRET as Secret
     );
   } catch (err) {
     throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
@@ -76,8 +75,8 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
       id: isUserExist.id,
       role: isUserExist.role,
     },
-    config.jwt.secret as Secret,
-    config.jwt.expires_in as string
+    process.env.JWT_SECRET as Secret,
+    process.env.JWT_EXPIRES_IN as string
   );
 
   return {

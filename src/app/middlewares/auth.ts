@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { Secret } from 'jsonwebtoken';
-import config from '../../config';
 import ApiError from '../../errors/ApiError';
 import { jwtHelpers } from '../../helpers/jwtHelpers';
 
@@ -18,7 +17,10 @@ const auth =
       // verify token
       let verifiedUser = null;
 
-      verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret);
+      verifiedUser = jwtHelpers.verifyToken(
+        token,
+        process.env.JWT_SECRET as Secret
+      );
 
       req.user = verifiedUser; // role  , userid
 

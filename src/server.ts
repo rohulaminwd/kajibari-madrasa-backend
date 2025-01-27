@@ -17,7 +17,7 @@ async function bootstrap() {
     // logger.info(`🛢   Database is connected successfully`);
     console.log(`🛢   Database is connected successfully`);
 
-    server = app.listen(config.port, () => {
+    server = app.listen(process.env.PORT, () => {
       // logger.info(`Application  listening on port ${config.port}`);
       console.log(`Application  listening on port ${config.port}`);
     });
