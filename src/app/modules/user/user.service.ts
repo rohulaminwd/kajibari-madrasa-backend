@@ -345,6 +345,16 @@ const updateUser = async (
   return result;
 };
 
+// ============== Delete User ================== //
+const deleteUser = async (userId: string): Promise<IUser | null> => {
+  // Find the user and remove it
+  const result = await User.findByIdAndDelete(userId)
+    .populate({ path: 'student' })
+    .populate({ path: 'faculty' });
+
+  return result;
+};
+
 export const UserService = {
   createStudent,
   createFaculty,
@@ -353,4 +363,5 @@ export const UserService = {
   GetMyProfile,
   AddStudentActive,
   updateUser,
+  deleteUser,
 };

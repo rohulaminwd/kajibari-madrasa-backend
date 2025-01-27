@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const admin_route_1 = require("../modules/admin/admin.route");
 const auth_route_1 = require("../modules/auth/auth.route");
 const faculty_route_1 = require("../modules/faculty/faculty.route");
-const invoice_routes_1 = require("../modules/invoice/invoice.routes");
+// import { InvoiceRoutes } from '../modules/invoice/invoice.routes';
 const student_route_1 = require("../modules/student/student.route");
 const user_route_1 = require("../modules/user/user.route");
 const router = express_1.default.Router();
@@ -32,10 +32,10 @@ const moduleRoutes = [
         path: '/auth',
         route: auth_route_1.AuthRoutes,
     },
-    {
-        path: '/invoice',
-        route: invoice_routes_1.InvoiceRoutes,
-    },
+    // {
+    //   path: '/invoice',
+    //   route: InvoiceRoutes,
+    // },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));
 exports.default = router;

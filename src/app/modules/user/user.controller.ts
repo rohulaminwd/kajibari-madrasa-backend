@@ -108,6 +108,20 @@ const updateUser: RequestHandler = catchAsync(
   }
 );
 
+const deleteUser: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const id: string = req.params.id;
+    const result = await UserService.deleteUser(id);
+
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'User Delete successfully',
+      data: result,
+    });
+  }
+);
+
 export const UserController = {
   createStudent,
   createFaculy,
@@ -116,4 +130,5 @@ export const UserController = {
   GetMyProfile,
   AddStudentActive,
   updateUser,
+  deleteUser,
 };
