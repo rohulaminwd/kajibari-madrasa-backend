@@ -13,7 +13,7 @@ let server: Server;
 
 async function bootstrap() {
   try {
-    await mongoose.connect(config.database_url as string);
+    await mongoose.connect(process.env.DATABASE_URL as string);
     // logger.info(`🛢   Database is connected successfully`);
     console.log(`🛢   Database is connected successfully`);
 
@@ -40,7 +40,6 @@ async function bootstrap() {
 bootstrap();
 
 // process.on('SIGTERM', () => {
-//   logger.info('SIGTERM is received');
 //   if (server) {
 //     server.close();
 //   }
